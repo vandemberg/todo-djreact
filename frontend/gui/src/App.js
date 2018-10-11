@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
-import MainLayout from './components/Layout';
+import MainLayout from './components/Main/Layout';
 import BaseRouter from './routes';
 
 // CSS imports

@@ -24,7 +24,7 @@ export default class MainLayout extends React.Component {
                     <Breadcrumb.Item> <NavLink to="/">List</NavLink> / </Breadcrumb.Item>
                 </Breadcrumb>
                 <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-
+                    {this.props.children}
                 </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>

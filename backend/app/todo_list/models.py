@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class TODOList(models.Model):
 
+    onwer = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
 
     def __str__(self):

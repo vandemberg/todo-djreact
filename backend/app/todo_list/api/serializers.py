@@ -6,8 +6,7 @@ from rest_auth.serializers import UserDetailsSerializer
 class TODOListSerializer(serializers.ModelSerializer):
 
     tasks = TaskSerializer(many=True, read_only=True)
-    user = UserDetailsSerializer()
 
     class Meta:
         model = TODOList
-        fields = ('id','title','tasks', 'user')
+        fields = ('id','title','tasks')

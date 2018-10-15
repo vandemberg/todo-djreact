@@ -41,16 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     
-    
     'todo_list',
     'tasks'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

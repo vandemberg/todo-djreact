@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_auth',
     
     'todo_list',
-    'tasks'
+    'tasks',
+    'reports'
 ]
 
 SITE_ID = 1

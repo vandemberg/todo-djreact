@@ -5,7 +5,7 @@ import TODOList from './containers/todolist/TODOListView';
 
 const BaseRouter = () => (
     <div>
-        <Route exact path='/' component={TODOList}/>
+        <p> Hello World </p>
     </div>
 );
 

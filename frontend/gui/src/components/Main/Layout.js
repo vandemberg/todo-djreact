@@ -17,6 +17,19 @@ export default class MainLayout extends React.Component {
                 >
                     <Menu.Item key="home"> Home </Menu.Item>
                     <Menu.Item key="report"> Reports </Menu.Item>
+                    {
+                        this.props.isAuthenticated ?
+                        <Menu.Item key="2" onClick={this.props.logout}>
+                            <Link to='/logout'>Logout</Link>
+                        </Menu.Item>
+                        
+                        :
+
+                        <Menu.Item key="2">
+                            <Link to="/login">Login</Link>
+                        </Menu.Item>
+
+                    }
                 </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>

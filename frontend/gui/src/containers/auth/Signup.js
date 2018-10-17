@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Input, Button, Icon} from 'antd';
+import { Form, Input, Button, Icon } from 'antd';
 import {NavLink} from 'react-router-dom';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import * as actions from '../../store/actions/auth';
 
 const FormItem = Form.Item;
@@ -13,7 +13,7 @@ class RegistrationForm extends React.Component {
         autoCompleteResult: [],
     };
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -33,12 +33,12 @@ class RegistrationForm extends React.Component {
         });
     }
 
-    handleConfirmBlur(e) {
+    handleConfirmBlur = (e) => {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
 
-    compareToFirstPassword(rule, value, callback) {
+    compareToFirstPassword = (rule, value, callback) => {
         const form = this.props.form;
         if(value && value !== form.getFieldValue('password')) {
             callback('Two password that you enter is inconsistent!');
@@ -47,11 +47,11 @@ class RegistrationForm extends React.Component {
         }
     }
 
-    validateToNextPassword(rule, value, callback) {
+    validateToNextPassword = (rule, value, callback) => {
         const form = this.props.form;
         
         if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
+          form.validateFields(['confirm'], { force: true });
         }
 
         callback();
@@ -87,12 +87,15 @@ class RegistrationForm extends React.Component {
                 <FormItem>
                     {getFieldDecorator('password', {
                         rules: [{
-                            type: true, message: 'Please input your password!',
+                            required: true, message: 'Please input your password!',
                         }, {
                             validator: this.validateToNextPassword,
                         }],
                     })(
-                        <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Password" />
+                        <Input type="password" 
+                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} 
+                                placeholder="Password" 
+                            />
                     )}
                 </FormItem>
                 

@@ -20,38 +20,21 @@ class App extends React.Component {
         
       <Form onSubmit={this.handleSubmit}>
         <FormItem
-          label="Note"
+          label="Title"
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 12 }}
         >
-          {getFieldDecorator('note', {
-            rules: [{ required: true, message: 'Please input your!' }],
+          {getFieldDecorator('title', {
+            rules: [{ required: true, message: 'Please input your Title!' }],
           })(
-            <Input />
-          )}
-        </FormItem>
-        <FormItem
-          label="Gender"
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 12 }}
-        >
-          {getFieldDecorator('gender', {
-            rules: [{ required: true, message: 'Please select your gender!' }],
-          })(
-            <Select
-              placeholder="Select a option and change input text above"
-              onChange={this.handleSelectChange}
-            >
-              <Option value="male">male</Option>
-              <Option value="female">female</Option>
-            </Select>
+            <Input type="text" />
           )}
         </FormItem>
         <FormItem
           wrapperCol={{ span: 12, offset: 5 }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            To Create
           </Button>
         </FormItem>
       </Form>

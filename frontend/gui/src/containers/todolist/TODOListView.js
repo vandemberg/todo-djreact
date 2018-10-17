@@ -4,7 +4,7 @@ export default class TODOList extends React.Component {
     render() {
         return (
             <div>
-                <TODOList/ >
+                Hello World
             </div>
         )
     }

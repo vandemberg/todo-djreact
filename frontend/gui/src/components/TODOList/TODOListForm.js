@@ -1,10 +1,9 @@
 import React from 'react';
-import { Form, Select, Input, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
 
-class App extends React.Component {
+class CustomForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("-- hello world --");
@@ -15,7 +14,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    
+    const {getFieldDecorator} = this.props.form;
+
     return (
         
       <Form onSubmit={this.handleSubmit}>
@@ -41,3 +42,5 @@ class App extends React.Component {
     );
   }
 }
+
+export default Form.create()(CustomForm)

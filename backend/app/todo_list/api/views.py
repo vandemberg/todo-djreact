@@ -12,12 +12,9 @@ from rest_framework import viewsets
 class TODOListViewSet(viewsets.ModelViewSet):
 
     serializer_class = TODOListSerializer
-    queryset = TODOList.objects.all()
+    queryset = TODOList.objects.exclude(title__isnull=True).exclude(title__exact='')
     authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
     permission_classes = (IsAuthenticated,)
-
-    def list(self, request, format=None):
-        return Response(TODOList.objects.all())
 
     def create(self, request, format=None):
 

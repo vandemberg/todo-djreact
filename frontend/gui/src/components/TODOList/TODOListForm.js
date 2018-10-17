@@ -8,10 +8,12 @@ class CustomForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      
-      values.key = localStorage.getItem("token");
-
-      axios.post("http://localhost:8000/api/todo-list/", values)
+      let header = {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        }
+      };
+      axios.post("http://localhost:8000/api/todo-list/", values, header)
         .then((result) => {
           console.log(result.data);
         })

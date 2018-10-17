@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 import TODOForm from '../../components/TODOList/TODOListForm';
 import TODOALL from '../../components/TODOList/TODOListAll';
 

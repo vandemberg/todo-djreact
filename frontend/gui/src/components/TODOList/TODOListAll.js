@@ -19,13 +19,17 @@ export default class TODOListAll extends React.Component {
             cards.push(card);
         }
 
+        if(cards.length === 0) {
+            return <center> Empty TODO List</center>;
+        }
+
         return cards;
     }
 
     componentDidMount() {
         axios.get("http://127.0.0.1:8000/api/todo-list/")
             .then(result => {
-                console.log(result.data);
+                this.setState({list: result.data});
             }).catch(error => console.log(error));
     }
 

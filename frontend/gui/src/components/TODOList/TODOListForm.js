@@ -1,12 +1,22 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import axios from 'axios';
 
 const FormItem = Form.Item;
 
 class CustomForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("-- hello world --");
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      
+      values.key = localStorage.getItem("token");
+
+      axios.post("http://localhost:8000/api/todo-list/", values)
+        .then((result) => {
+          console.log(result.data);
+        })
+        .catch(error => console.log(error));  
+    });
   }
 
   handleSelectChange = (value) => {

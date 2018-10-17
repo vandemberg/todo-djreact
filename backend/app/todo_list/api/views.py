@@ -5,6 +5,7 @@ from .serializers import TODOListSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 
 from rest_framework import viewsets
 
@@ -19,8 +20,11 @@ class TODOListViewSet(viewsets.ModelViewSet):
         return Response(TODOList.objects.all())
 
     def create(self, request, format=None):
-        content = {
-            'user': str(request.user),  # `django.contrib.auth.User` instance.
-            'auth': str(request.auth),  # None
-        }
-        return Response(content)
+
+        onwer = request.user.id
+        title = request.data['title']
+        
+        todo_list = TODOList(title=title, onwer=User.objects.get(id=onwer))
+        todo_list.save()
+
+        return Response(TODOListSerializer(todo_list).data)

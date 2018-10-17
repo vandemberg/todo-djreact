@@ -31,8 +31,8 @@ export default class TODOList extends React.Component {
             this.listTasks();
         });
 
-        this.observer.subscribe('delete-task', (task)=>{
-            let list = this.state.list;
+        this.observer.subscribe('delete-task', (task) => {
+            let list = this.state.todoList;
             list.tasks.splice(task.index, 1);
             this.setState({todoList: list});
             this.listTasks();

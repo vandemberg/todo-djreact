@@ -14,7 +14,6 @@ const customStyles = {
     }
   };
   
-// Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 // Modal.setAppElement("#task-details")
   
 const gridStyle = {
@@ -42,6 +41,18 @@ export default class Task extends React.Component {
 
     closeModal() {
         this.setState({modalIsOpen: false});
+    }
+
+    componentDidMount() {
+        this.observer.subscribe('edit-task', (task) => {
+            this.props.task.title = task.title;
+            this.props.task.deadline = task.deadline;
+            this.closeModal();
+        });
+
+        this.observer.subscribe('delete-task', (task)=> {
+            this.closeModal();
+        });
     }
 
     render() {

@@ -9,7 +9,7 @@ export default class Task extends React.Component {
         super(props);
         
         this.observer = props.observer;
-        console.log(props);
+        
         this.state = {
             task: props.task
         };        
@@ -40,13 +40,13 @@ export default class Task extends React.Component {
         .catch(error => console.log(error));
     }
 
-    onTitle = (e) => {
+    onTaskTitle = (e) => {
         let task = this.state.task;
         task.title = e.target.value;
         this.setState({task});
     }
 
-    onDeadline = (date, dateString) => {
+    onTaskDeadline = (date, dateString) => {
         this.setState({taskDeadline: dateString});
     }
 
@@ -67,7 +67,7 @@ export default class Task extends React.Component {
                             } />
                     </Row>
                     <Row style={{marginTop: '10px'}}>
-                        <Input type="text" placeholder="New Task?" onChange={this.onTaskTitle}
+                        <Input type="text" onChange={this.onTaskTitle}
                                 defaultValue={this.state.task.title} />
                     </Row>
                 </Card>

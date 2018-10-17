@@ -5,12 +5,20 @@ import TODOListHttp from '../../http/TODOListHTTP';
 const FormItem = Form.Item;
 
 class CustomForm extends React.Component {
+  
+  constructor(props){
+    super(props);
+    this.observer = props.observer;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       let data = {title: values.title};
       TODOListHttp.create(data)
-        .then(result => console.log(result))
+        .then(result => {
+          this.observer.publish('add-todo-list', result.data );
+        })
         .catch(error => console.log(error));
     });
   }

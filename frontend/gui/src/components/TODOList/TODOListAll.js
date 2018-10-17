@@ -4,6 +4,11 @@ import TODOListCard from './TODOList';
 import TODOListHttp from './../../http/TODOListHTTP';
 
 export default class TODOListAll extends React.Component {
+    
+    constructor(props){
+        super(props);
+        this.observer = props.observer;
+    }
 
     state = {
         list: []
@@ -13,9 +18,14 @@ export default class TODOListAll extends React.Component {
         let cards = [];
 
         for(let index in this.state.list) {
+            
+            let todoList = this.state.list[index];
+            todoList.index = index;
+
             let card = <TODOListCard 
-                        content={this.state.list[index]}
-                        />
+                        todoList={todoList}
+                        key={index} 
+                        observer={this.observer} />
             cards.push(card);
         }
 
@@ -31,6 +41,23 @@ export default class TODOListAll extends React.Component {
             .then(result => {
                 this.setState({list: result.data});
             }).catch(error => console.log(error));
+
+        this.observer.subscribe('add-todo-list', (data)=>{
+            let list = this.state.list;
+            list.push(data);
+            this.setState({list});
+        });
+
+        this.observer.subscribe('delete-todo-list', (data)=>{
+            let list = this.state.list;
+            list.splice(data, 1);
+            this.setState({list});
+        });
+
+    }
+
+    componentDidUpdate() {
+        this.createList();
     }
 
     render() {

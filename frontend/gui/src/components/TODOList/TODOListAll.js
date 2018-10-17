@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row} from 'antd';
 import TODOListCard from './TODOList';
-import axios from 'axios';
+import TODOListHttp from './../../http/TODOListHTTP';
 
 export default class TODOListAll extends React.Component {
 
@@ -27,7 +27,7 @@ export default class TODOListAll extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://127.0.0.1:8000/api/todo-list/")
+        TODOListHttp.list()
             .then(result => {
                 this.setState({list: result.data});
             }).catch(error => console.log(error));

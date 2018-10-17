@@ -1,5 +1,11 @@
 import axios from 'axios';
-axios.defaults.headers.common['Authorization'] = `Token ${localStorage.getItem("token")}`;
+
+if(localStorage.getItem("token")) {
+    axios.defaults.headers.common['Authorization'] = `Token ${localStorage.getItem("token")}`;
+} else {
+    delete axios.defaults.headers.common['Authorization'];
+}
+
 const path = "http://localhost:8000/api";
 
 export default class TODOListHttp {

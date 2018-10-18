@@ -1,15 +1,13 @@
 from rest_framework import serializers
 from tasks.models import Task
 from django.contrib.auth.models import User
+from members.api.serializers import TaskUsersSerializer
+from rest_auth.serializers import UserDetailsSerializer
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username')
 
 class TaskSerializer(serializers.ModelSerializer):
 
-    users = UserSerializer(many=True, read_only=True)
+    users = UserDetailsSerializer(read_only=True, many=True)
 
     class Meta:
         model = Task

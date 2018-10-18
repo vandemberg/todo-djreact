@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     
     'todo_list',
     'tasks',
-    'reports'
+    'reports',
+    'members',
 ]
 
 SITE_ID = 1

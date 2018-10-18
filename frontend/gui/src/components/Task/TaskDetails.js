@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, DatePicker, Card, Icon, Row } from 'antd';
 import TaskHttp from '../../http/TaskHTTP';
 import moment from 'moment';
+import Member from '../Members/Member';
 
 export default class Task extends React.Component {
 
@@ -50,6 +51,18 @@ export default class Task extends React.Component {
         this.setState({taskDeadline: dateString});
     }
 
+    listMembers = () => {
+        let members = [];
+        
+        for(let index in this.state.task.users) {
+            let member = <Member member={this.state.task.users[index]} />
+            members.push(member);
+        }
+        
+        return members;
+
+    }
+
     render() {
         return (
             <div>
@@ -72,7 +85,7 @@ export default class Task extends React.Component {
                     </Row>
                 </Card>
                  <Card title="Members" style={{ width: 300, marginTop: 16 }}>
-                    <p> User 1 </p>
+                    {this.listMembers()}
                 </Card>
             </div>
         );

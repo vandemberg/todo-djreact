@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'tasks',
     'reports',
     'members',
+    'users',
 ]
 
 SITE_ID = 1

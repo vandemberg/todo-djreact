@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/members/', include('members.api.urls')),
     path('api/reports/', include('reports.api.urls')),
     path('api/rest-auth/', include('rest_auth.urls')),
-    path('api/registration/', include('rest_auth.registration.urls'))
+    path('api/registration/', include('rest_auth.registration.urls')),
+    path('api/users/', include('users.api.urls')),
 ]

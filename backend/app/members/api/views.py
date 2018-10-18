@@ -6,9 +6,4 @@ from members.models import TaskUsers
 
 class MembersViewSet(viewsets.ModelViewSet):
     serializer_class = TaskUsersSerializer
-    queryset = TaskUsers.objects.all()
-
-    def create(self, request, format=None):
-        return Response(
-            str("success")
-        )
+    queryset = TaskUsers.objects.all()    

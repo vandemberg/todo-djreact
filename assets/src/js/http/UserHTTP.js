@@ -6,7 +6,7 @@ if(localStorage.getItem("token")) {
     delete axios.defaults.headers.common['Authorization'];
 }
 
-const path = "http://localhost:8000/api";
+const path = "/api";
 
 export default class UserHttp {
     static list() {

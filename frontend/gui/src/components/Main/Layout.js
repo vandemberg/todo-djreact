@@ -15,7 +15,7 @@ export default class MainLayout extends React.Component {
                     defaultSelectedKeys={['2']}
                     style={{ lineHeight: '64px' }}
                 >
-                    <Menu.Item key="home"> Home </Menu.Item>
+                    <Menu.Item key="home"> <Link to='/'> Home </Link></Menu.Item>
                     <Menu.Item key="report"> Reports </Menu.Item>
                     {
                         this.props.isAuthenticated ?

@@ -1,8 +1,14 @@
 import React from 'react';
-import { Input, DatePicker, Card, Icon, Row } from 'antd';
+import { Input, DatePicker, Card, Icon, Row, Col, Select, Button } from 'antd';
 import TaskHttp from '../../http/TaskHTTP';
+import UserHttp from '../../http/UserHTTP';
 import moment from 'moment';
 import Member from '../Members/Member';
+import MemberHttp from '../../http/MemberHTTP';
+
+
+const Option = Select.Option;
+
 
 export default class Task extends React.Component {
 
@@ -10,10 +16,30 @@ export default class Task extends React.Component {
         super(props);
         
         this.observer = props.observer;
-        
+        this.userIdAdd = null;
         this.state = {
             task: props.task
         };        
+    }
+
+    componentDidMount() {
+        this.observer.subscribe("remove-task-user", (index) => {
+            let task = this.state.task;
+            task.members.slice(index, 1);
+            this.setState({task: task});
+        });
+
+        UserHttp.list()
+            .then((result) => {
+                this.setState({
+                    users: result.data
+                });
+            })
+    }
+
+    componentDidUpdate() {
+        this.listUsers();
+        this.listMembers();
     }
 
     editTask = () => {
@@ -55,12 +81,49 @@ export default class Task extends React.Component {
         let members = [];
         
         for(let index in this.state.task.users) {
-            let member = <Member member={this.state.task.users[index]} />
+            console.log(this.state.task.users[index]);
+            let member = <Member member={this.state.task.users[index]} 
+                                 task={this.state.task} 
+                                 index={index}
+                                 observer={this.observer}
+                                 key={index} />
             members.push(member);
         }
         
         return members;
 
+    }
+
+    onSelectUser = (value) => {
+        this.userIdAdd = value;
+    }
+
+    listUsers = () => {
+        let users = [];
+
+        for(let index in this.state.users) {
+            let user = this.state.users[index];
+            let component = <Option value={user.pk} key={index}> {user.username} </Option>
+            users.push(component);
+        }
+
+        return users;
+    }
+    
+    addMember = () => {
+        MemberHttp.create({
+            user: this.userIdAdd,
+            task: this.state.task.id 
+        })
+        .then(result => {
+            let task_user = result.data;
+            MemberHttp.list(task_user.user_id, task_user.task_id)
+                .then(result => {
+                    let task = this.state.task;
+                    task.users.push(result.data);
+                    this.setState({task});
+                });
+        })
     }
 
     render() {
@@ -82,6 +145,25 @@ export default class Task extends React.Component {
                     <Row style={{marginTop: '10px'}}>
                         <Input type="text" onChange={this.onTaskTitle}
                                 defaultValue={this.state.task.title} />
+                    </Row>
+                </Card>
+                <Card title="Add Member" style={{ width: 300, marginTop: 16 }}>
+                    <Row>
+                        <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Select a member"
+                        optionFilterProp="children"
+                        onChange={this.onSelectUser}
+                        filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0} >
+                            
+                            {this.listUsers()}
+                        
+                        </Select>                    
+                    </Row>
+                    <br/>
+                    <Row>
+                        <Button type="primary" onClick={this.addMember}> Add </Button>
                     </Row>
                 </Card>
                  <Card title="Members" style={{ width: 300, marginTop: 16 }}>
